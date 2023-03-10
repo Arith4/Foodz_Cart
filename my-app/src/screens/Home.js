@@ -1,0 +1,22 @@
+import React from 'react'
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
+import Card from '../components/Card'
+import Carousel from '../components/Carousel'
+
+export default function Home() {
+  return (
+    <>
+      <div><Navbar/></div>
+      <div><Carousel /></div>
+      <div className='m-4'>
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      </div>
+      <div><Footer/></div>
+    </>
+  )
+}
