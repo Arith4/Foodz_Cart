@@ -7,6 +7,7 @@ import {
   Route,
 } from "react-router-dom";
 import Login from './screens/Login';
+import SignUp from './screens/SignUp';
 
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
    <div>
     <Routes>
       <Route path='/' element={<Home />} />
-      <Route path='/login' element={<Login />} />
+      <Route path='/loginUser' element={<Login />} />
+      <Route path='/createUser' element={<SignUp />} />
     </Routes>
    </div>
    </Router>
