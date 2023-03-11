@@ -9,35 +9,10 @@ await mongoose.connect(mongoURI).then(async() => {
         if(err){
             console.log(err);
         }
-        else{
-            console.log();
-        }
     })
 }).catch(() => {
     console.log(`Connection to Database Unsuccessfull`);
 })
 }
-
-// const connection = async () => {
-//          await mongoose.connect(mongoURI => {
-//             if(err){
-//                 console.log(err);
-//             }
-//             else{
-//                 console.log("Successfully connected to database");
-//                  const fetched_data = mongoose.connection.db.collection("food_items");
-//                  fetched_data.find({}).toArray(function (err, data) {
-//                  if(err){
-//                  console.log(err);
-//                  }
-//                  else{
-//                  console.log(data);
-//                  }
-//             })   
-//             }
-//          })
-//     }
-
-
 
 module.exports = connection;

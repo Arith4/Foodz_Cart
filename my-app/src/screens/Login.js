@@ -27,6 +27,7 @@ export default function Login() {
 
       if(json.success){
         navigate("/",{ replace: true });
+        localStorage.setItem("authToken", json.authToken);
       }
   }
 

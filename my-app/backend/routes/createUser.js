@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-
+const jwtSecretString = "dbhsdhjbvjhavdhjfbhdbhjhsdbdvjhsd";
 
 router.post("/createUser",[
     body('email','Invalid email address').isEmail(),
@@ -16,12 +18,15 @@ async (req, res) => {
       return res.status(400).json({ errors: errors.array() });
     }
 
+    const salt = await bcrypt.genSalt(10);
+    let secPassword = await bcrypt.hash(req.body.password, salt)
+
     try {
        await User.create({
         name : req.body.name,
         location : req.body.location,
         email : req.body.email,
-        password : req.body.password
+        password : secPassword
        })
        return res.json({
         success : true,
@@ -59,7 +64,9 @@ async (req, res) => {
        })
     }
 
-    if(req.body.password !== userData.password){
+    const comparePassword = await bcrypt.compare(req.body.password, userData.password);
+
+    if(!comparePassword){
       return res.status(400).json({
       success : false,
       message : "Enter valid password",
@@ -67,9 +74,18 @@ async (req, res) => {
     }
 
     else{
+    const data = {
+      user : {
+        id : userData.id
+      }
+    }
+
+    const authToken = jwt.sign(data, jwtSecretString);
+
       return res.status(200).json({
         success : true,
         message : "Email and password are verified successfully",
+        authToken : authToken
         })   
     }
   }
